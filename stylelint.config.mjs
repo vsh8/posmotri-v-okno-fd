@@ -17,13 +17,22 @@ reordered.splice(
   interaction
 );
 
+const compactGroups = reordered.map((group) =>
+  Array.isArray(group)
+    ? group
+    : {
+        ...group,
+        emptyLineBefore: 'never',
+      }
+);
+
 export default {
   extends: [
     'stylelint-config-standard',
     'stylelint-config-clean-order',
   ],
   rules: {
-    'order/properties-order': [reordered, options],
+    'order/properties-order': [compactGroups, options],
     'selector-class-pattern': [
       '^[a-z][a-z0-9]*(-[a-z0-9]+)*(__[a-z0-9]+(-[a-z0-9]+)*)?(_[a-z0-9]+(-[a-z0-9]+)*){0,2}$',
       {
